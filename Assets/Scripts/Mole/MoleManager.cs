@@ -11,14 +11,14 @@ public class MoleManager : MonoBehaviour
     [SerializeField]
     private float _minSpawnDelay, _startSpawnDelay;
 
+    [SerializeField]
+    private UIController _scoreBoard;
+
     private MoleBehaviour[] _moles;
     public bool _canSpawn = true;
 
-    public bool _playing = false;
-
     private void Start() {
         _moles = GetComponentsInChildren<MoleBehaviour>();
-        StartCoroutine(SpawnWithInterval());
     }
 
     public GameObject GetRandomMole()
@@ -27,7 +27,7 @@ public class MoleManager : MonoBehaviour
         else return null;
     }
 
-    public void CanSpawnInRandomHole()
+    private void CanSpawnInRandomHole()
     {
         if (_moles.Length > 0) 
         {
@@ -51,7 +51,7 @@ public class MoleManager : MonoBehaviour
     private IEnumerator SpawnWithInterval()
     {
         float time = _startSpawnDelay;
-        while (_playing)
+        while (_scoreBoard._numberHearts >= 0)
         {
             CanSpawnInRandomHole();
             yield return new WaitForSeconds(time);
@@ -59,5 +59,10 @@ public class MoleManager : MonoBehaviour
             _canSpawn = true;
         }
         
+    }
+
+    public void StartSpawning()
+    {
+        StartCoroutine(SpawnWithInterval());
     }
 }

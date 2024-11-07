@@ -467,9 +467,10 @@ GameObject:
   - component: {fileID: 3195041467521924725}
   - component: {fileID: 8670775639435192767}
   - component: {fileID: 1111455464329036693}
+  - component: {fileID: 5594805178772090045}
   m_Layer: 0
   m_Name: Body.015
-  m_TagString: Untagged
+  m_TagString: Mole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -539,6 +540,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5594805178772090045
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4858044244129230040}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3184377740439606504, guid: bb8469956c1469e43b1f7f0d31bd891c, type: 3}
 --- !u!1 &5070010318600599670
 GameObject:
   m_ObjectHideFlags: 0
