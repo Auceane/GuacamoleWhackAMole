@@ -63,7 +63,7 @@ public class UIController : MonoBehaviour
             _timePassedBeforeLosingACombos += Time.deltaTime;
 
 
-            if (_timePassedBeforeLosingACombos >= _maxTimeForLosingACombos)
+            if (_timePassedBeforeLosingACombos >= _maxTimeForLosingACombos && _combos!=0)
             {
                 _combos = 0;
                 UpadteCombos();
@@ -106,8 +106,9 @@ public class UIController : MonoBehaviour
         if(_combos!=0 && _combos % _numberOfCombosToGetAHeart==0 && _HeartContainer.childCount < 5)
         {
 
-            var heart = Instantiate(_HeartPrefab);
-            heart.transform.SetParent(_HeartContainer);
+            var heart = Instantiate(_HeartPrefab,_HeartContainer);
+            heart.transform.localScale = Vector3.one;
+            //heart.transform.SetParent(_HeartContainer);
 
             _numberHearts++;
 
