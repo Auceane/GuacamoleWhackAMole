@@ -56,24 +56,28 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _timePassedBeforeLosingAHeart+=Time.deltaTime;
-        _timePassedBeforeLosingACombos+=Time.deltaTime;
-
-
-        if (_timePassedBeforeLosingACombos >= _maxTimeForLosingACombos)
+        if(_numberHearts> 0)
         {
-            _combos = 0;
-            UpadteCombos();
 
-        }
-        if (_timePassedBeforeLosingAHeart >= _maxTimeForLosingAHeart && _numberHearts > 0)
-        {
-            Debug.Log("Destroy Heart");
-            GameObject heart= _HeartContainer.GetChild(0).gameObject;
-            Destroy(heart);
-            _numberHearts--;
-            _timePassedBeforeLosingAHeart = 0;
+            _timePassedBeforeLosingAHeart += Time.deltaTime;
+            _timePassedBeforeLosingACombos += Time.deltaTime;
 
+
+            if (_timePassedBeforeLosingACombos >= _maxTimeForLosingACombos)
+            {
+                _combos = 0;
+                UpadteCombos();
+
+            }
+            if (_timePassedBeforeLosingAHeart >= _maxTimeForLosingAHeart)
+            {
+                Debug.Log("Destroy Heart");
+                GameObject heart = _HeartContainer.GetChild(0).gameObject;
+                Destroy(heart);
+                _numberHearts--;
+                _timePassedBeforeLosingAHeart = 0;
+
+            }
         }
 
 
@@ -141,15 +145,17 @@ public class UIController : MonoBehaviour
 
     public void Whacked()
     {
+        if (_numberHearts > 0)
+        {
+            _timePassedBeforeLosingACombos = 0;
 
-        _timePassedBeforeLosingACombos = 0;
+            _timePassedBeforeLosingAHeart = 0;
 
-        _timePassedBeforeLosingAHeart = 0;
+            _combos++;
 
-        _combos ++;
-
-        UpadteCombos();
-        UpdateScore();
+            UpadteCombos();
+            UpdateScore();
+        }
 
     }
 
