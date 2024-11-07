@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/HammerTest.unity.meta
 guid: a1eebe6edc28b451b99d798de0aa27a9
+========
+guid: c4f52bc0390968f4693eacc9279cee57
+>>>>>>>> origin/Ui:Assets/Scenes/UI-Creation.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
