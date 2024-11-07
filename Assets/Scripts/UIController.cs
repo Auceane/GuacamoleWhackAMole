@@ -33,14 +33,14 @@ public class UIController : MonoBehaviour
 
     float _timePassedBeforeLosingACombos=0;
 
-    float _maxTimeForLosingACombos = 3;
+    float _maxTimeForLosingACombos = 5;
 
 
-    float _timePassedBeforeLosingAHeart=0;
+    //float _timePassedBeforeLosingAHeart=0;
 
-    float _maxTimeForLosingAHeart=5;
+   // float _maxTimeForLosingAHeart=5;
 
-    bool _whacked = false;
+    //bool _whacked = false;
 
 
     // Start is called before the first frame update
@@ -59,7 +59,7 @@ public class UIController : MonoBehaviour
         if(_numberHearts> 0)
         {
 
-            _timePassedBeforeLosingAHeart += Time.deltaTime;
+            //_timePassedBeforeLosingAHeart += Time.deltaTime;
             _timePassedBeforeLosingACombos += Time.deltaTime;
 
 
@@ -69,7 +69,7 @@ public class UIController : MonoBehaviour
                 UpadteCombos();
 
             }
-            if (_timePassedBeforeLosingAHeart >= _maxTimeForLosingAHeart)
+            /*if (_timePassedBeforeLosingAHeart >= _maxTimeForLosingAHeart)
             {
                 Debug.Log("Destroy Heart");
                 GameObject heart = _HeartContainer.GetChild(0).gameObject;
@@ -77,7 +77,7 @@ public class UIController : MonoBehaviour
                 _numberHearts--;
                 _timePassedBeforeLosingAHeart = 0;
 
-            }
+            }*/
         }
 
 
@@ -150,7 +150,7 @@ public class UIController : MonoBehaviour
         {
             _timePassedBeforeLosingACombos = 0;
 
-            _timePassedBeforeLosingAHeart = 0;
+            //_timePassedBeforeLosingAHeart = 0;
 
             _combos++;
 
@@ -158,6 +158,19 @@ public class UIController : MonoBehaviour
             UpdateScore();
         }
 
+    }
+
+
+    public void HasNotWhacked()
+    {
+        if (_numberHearts > 0)
+        {
+            Debug.Log("Destroy Heart");
+            GameObject heart = _HeartContainer.GetChild(0).gameObject;
+            Destroy(heart);
+            _numberHearts--;
+            //_timePassedBeforeLosingAHeart = 0;
+        }
     }
 
 
