@@ -13,6 +13,7 @@ public class MoleBehaviour : MonoBehaviour
     private MoleManager _MoleManager;
     private GameObject _currentMole = null;
     public bool _canSpawnHere = false;
+    private bool _isSpawned = false;
 
 
     private void Start() 
@@ -22,11 +23,14 @@ public class MoleBehaviour : MonoBehaviour
 
     private void Update() 
     {
-        if (_canSpawnHere)
+        if (_canSpawnHere && _MoleManager._canSpawn)
         {
+            _isSpawned = true;
+            Debug.Log("BeforeSpawn");
             SpawnMole();
             StartCoroutine(MoveMole());
             _canSpawnHere = false;
+            _MoleManager._canSpawn = false;
         }
     }
 
@@ -46,14 +50,11 @@ public class MoleBehaviour : MonoBehaviour
         yield return new WaitForSeconds(2f);
         if (_currentMole) 
         {
-            _currentMole.transform.DOMove(_startPos.position, 0.5f).SetEase(Ease.Linear).OnComplete(() => StartCoroutine(DestroyMole()));
+            _currentMole.transform.DOMove(_startPos.position, 0.5f).SetEase(Ease.Linear).OnComplete(() => {Destroy(_currentMole); _isSpawned = false;});
         }
     }
 
-    private IEnumerator DestroyMole()
-    {
-        Destroy(_currentMole);
-        yield return new WaitForSeconds(3f);
-        _canSpawnHere = true;
+    public bool CanSpawn(){
+        return !_isSpawned;
     }
 }
