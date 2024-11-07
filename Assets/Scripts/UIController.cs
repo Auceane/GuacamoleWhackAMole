@@ -31,9 +31,9 @@ public class UIController : MonoBehaviour
     int _numberOfCombosToGetAHeart = 20;
 
 
-    float _timePassedBeforeLosingACombos=0;
+    //float _timePassedBeforeLosingACombos=0;
 
-    float _maxTimeForLosingACombos = 5;
+    //float _maxTimeForLosingACombos = 5;
 
 
     //float _timePassedBeforeLosingAHeart=0;
@@ -54,7 +54,7 @@ public class UIController : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         if(_numberHearts> 0)
         {
@@ -69,7 +69,7 @@ public class UIController : MonoBehaviour
                 UpadteCombos();
 
             }
-            /*if (_timePassedBeforeLosingAHeart >= _maxTimeForLosingAHeart)
+            if (_timePassedBeforeLosingAHeart >= _maxTimeForLosingAHeart)
             {
                 Debug.Log("Destroy Heart");
                 GameObject heart = _HeartContainer.GetChild(0).gameObject;
@@ -77,11 +77,11 @@ public class UIController : MonoBehaviour
                 _numberHearts--;
                 _timePassedBeforeLosingAHeart = 0;
 
-            }*/
+            }
         }
 
 
-    }
+    }*/
 
 
     private void UpadteCombos()
@@ -148,7 +148,7 @@ public class UIController : MonoBehaviour
     {
         if (_numberHearts > 0)
         {
-            _timePassedBeforeLosingACombos = 0;
+            //_timePassedBeforeLosingACombos = 0;
 
             //_timePassedBeforeLosingAHeart = 0;
 
@@ -169,6 +169,9 @@ public class UIController : MonoBehaviour
             GameObject heart = _HeartContainer.GetChild(0).gameObject;
             Destroy(heart);
             _numberHearts--;
+
+            _combos = 0;
+            UpadteCombos();
             //_timePassedBeforeLosingAHeart = 0;
         }
     }
