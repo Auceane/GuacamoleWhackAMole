@@ -2,71 +2,65 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 5;          
-    private int currentHealth;         
+    [SerializeField]
+    private int maxHealth = 5; 
+    private int currentHealth;
 
-    private LifeSystem lifeSystem;     
+    private UIController uiController; 
 
     private void Start()
     {
-        
         currentHealth = maxHealth;
 
-       
-        lifeSystem = FindObjectOfType<LifeSystem>();
-        if (lifeSystem != null)
+        
+        uiController = FindObjectOfType<UIController>();
+
+        
+        if (uiController != null)
         {
-            
-            lifeSystem.maxLives = maxHealth;
-            lifeSystem.currentLives = currentHealth;
-            lifeSystem.UpdateHeartsUI();
+            uiController.UpdateHeartsUI(currentHealth);
         }
     }
 
-    // Function to inflict damage on the player
+    // Inflige des dégâts au joueur
     public void TakeDamage(int damage)
     {
-        if (currentHealth > 0)  
+        if (damage <= 0 || currentHealth <= 0) return; 
+
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        
+        if (uiController != null)
         {
-            currentHealth -= damage;
-            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);  
+            uiController.UpdateHeartsUI(currentHealth);
+        }
 
-            
-            if (lifeSystem != null)
-            {
-                lifeSystem.currentLives = currentHealth;  
-                lifeSystem.UpdateHeartsUI();
-            }
-
-            
-            if (currentHealth <= 0)
-            {
-                Die();
-            }
+        
+        if (currentHealth <= 0)
+        {
+            Die();
         }
     }
 
-    // Function to heal the player
+    // Soigne le joueur
     public void Heal(int healAmount)
     {
-        if (currentHealth < maxHealth)  
-        {
-            currentHealth += healAmount;
-            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        if (healAmount <= 0 || currentHealth >= maxHealth) return; 
 
-            
-            if (lifeSystem != null)
-            {
-                lifeSystem.currentLives = currentHealth;  
-                lifeSystem.UpdateHeartsUI();
-            }
+        currentHealth += healAmount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        
+        if (uiController != null)
+        {
+            uiController.UpdateHeartsUI(currentHealth);
         }
     }
 
-    // Function called when the player dies
+    /
     private void Die()
     {
         Debug.Log("Le joueur est mort !");
-        // Ajoute ici la logique de mort, comme recharger la scène, afficher un écran de Game Over, etc.
-    }
+        
 }
