@@ -106,8 +106,9 @@ public class UIController : MonoBehaviour
         if(_combos!=0 && _combos % _numberOfCombosToGetAHeart==0 && _HeartContainer.childCount < 5)
         {
 
-            var heart = Instantiate(_HeartPrefab,_HeartContainer);
-            heart.transform.localScale = Vector3.one;
+            //var heart = Instantiate(_HeartPrefab,_HeartContainer);
+            //heart.transform.localScale = Vector3.one;
+            AddHeart();
             //heart.transform.SetParent(_HeartContainer);
 
             _numberHearts++;
@@ -166,8 +167,9 @@ public class UIController : MonoBehaviour
         if (_numberHearts > 0)
         {
             Debug.Log("Destroy Heart");
-            GameObject heart = _HeartContainer.GetChild(0).gameObject;
-            Destroy(heart);
+            //GameObject heart = _HeartContainer.GetChild(0).gameObject;
+            //Destroy(heart);
+            DestroyHeart();
             _numberHearts--;
 
             _combos = 0;
@@ -179,7 +181,53 @@ public class UIController : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        _combos = 0;
+        _score = 0;
+        _Combos.text = "" + _combos;
+
+        _Score.text = "" + _score;
+
+        LoadHearts();
+
+        // Restart the game
+
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+
+    private void LoadHearts()
+    {
+        int childCount = _HeartContainer.childCount;
+        if (childCount < 3)
+        {
+            while (childCount < 3)
+            {
+                AddHeart();
+                childCount++;
+            }
+        }else if(childCount > 3)
+        {
+            while (childCount > 3)
+            {
+                DestroyHeart();
+                childCount--;
+            }
+        }
+
+
+    }
+
+    private void AddHeart()
+    {
+        var heart = Instantiate(_HeartPrefab, _HeartContainer);
+        heart.transform.localScale = Vector3.one;
+    }
+
+
+    private void DestroyHeart()
+    {
+        GameObject heart = _HeartContainer.GetChild(0).gameObject;
+        Destroy(heart);
     }
 
 
