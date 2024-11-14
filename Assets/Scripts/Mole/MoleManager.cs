@@ -9,10 +9,12 @@ public class MoleManager : MonoBehaviour
     private List<GameObject> _MoleList = new List<GameObject>();
 
     [SerializeField]
-    private float _minSpawnDelay, _startSpawnDelay;
+    private GameObject _restart;
 
     [SerializeField]
-    private UIController _scoreBoard;
+    private float _minSpawnDelay, _startSpawnDelay;
+
+    public UIController _scoreBoard;
 
     private MoleBehaviour[] _moles;
     public bool _canSpawn = true;
@@ -50,15 +52,18 @@ public class MoleManager : MonoBehaviour
 
     private IEnumerator SpawnWithInterval()
     {
+        Debug.Log("start game");
         float time = _startSpawnDelay;
-        while (_scoreBoard._numberHearts >= 0)
+        while (_scoreBoard._numberHearts > 0)
         {
+            Debug.Log("start Spawn");
             CanSpawnInRandomHole();
             yield return new WaitForSeconds(time);
             if (time > _minSpawnDelay + 0.1f) time -= 0.1f;
             _canSpawn = true;
         }
-        
+        _restart.SetActive(true);
+        Debug.Log("stop game");
     }
 
     public void StartSpawning()

@@ -53,7 +53,7 @@ public class MoleBehaviour : MonoBehaviour
         if (_currentMole) 
         {
             _currentMole.GetComponentInChildren<MeshCollider>().enabled = false;
-            _currentMole.transform.DOMove(_startPos.position, 0.5f).SetEase(Ease.Linear).OnComplete(() => {Destroy(_currentMole); _isSpawned = false;});
+            _currentMole.transform.DOMove(_startPos.position, 0.5f).SetEase(Ease.Linear).OnComplete(() => {Destroy(_currentMole); _isSpawned = false; _MoleManager._scoreBoard.HasNotWhacked();});
         }
     }
 
@@ -62,6 +62,7 @@ public class MoleBehaviour : MonoBehaviour
         if (_currentMole)
         {
             StopCoroutine(MoveMole());
+            _MoleManager._scoreBoard.Whacked();
             _currentMole.GetComponentInChildren<MeshCollider>().enabled = false;
             _currentMole.transform.DOMove(_startPos.position, 0.25f).SetEase(Ease.Linear).OnComplete(() => {Destroy(_currentMole); _isSpawned = false;});
             Debug.Log("hit");

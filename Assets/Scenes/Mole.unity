@@ -815,6 +815,7 @@ MonoBehaviour:
   - {fileID: 3337769092035301771, guid: e25edef8e21a71040b2e56b99d4ba38e, type: 3}
   - {fileID: 3760525020986291867, guid: 216bd67e518eb1441b61fa0dc90a3120, type: 3}
   - {fileID: 2543828826948607283, guid: 6d53fe7bb7f259e40b07374175c28d2a, type: 3}
+  _restart: {fileID: 1270952301}
   _minSpawnDelay: 0.8
   _startSpawnDelay: 3
   _scoreBoard: {fileID: 1119772153}
@@ -2023,6 +2024,7 @@ MonoBehaviour:
   _Combos: {fileID: 249135210}
   _HeartContainer: {fileID: 52324007}
   _HeartPrefab: {fileID: 2527462299561185630, guid: 3c2956423d9bef344ace9c77b0d24dcc, type: 3}
+  _moleManager: {fileID: 363694629}
   _numberHearts: 3
 --- !u!1 &1173840021
 GameObject:
@@ -2586,6 +2588,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: MoleManager, Assembly-CSharp
         m_MethodName: StartSpawning
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1270952301}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

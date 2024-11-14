@@ -20,6 +20,9 @@ public class UIController : MonoBehaviour
     [SerializeField]
     GameObject _HeartPrefab;
 
+    [SerializeField]
+    MoleManager _moleManager;
+
 
 
     int _score=0;
@@ -176,6 +179,11 @@ public class UIController : MonoBehaviour
             UpadteCombos();
             //_timePassedBeforeLosingAHeart = 0;
         }
+        /*if(_numberHearts == 0)
+        {
+            
+            _moleManager.StopGame();
+        }*/
     }
 
 
@@ -186,7 +194,7 @@ public class UIController : MonoBehaviour
         _Combos.text = "" + _combos;
 
         _Score.text = "" + _score;
-
+        _numberHearts = 3;
         LoadHearts();
 
         // Restart the game
