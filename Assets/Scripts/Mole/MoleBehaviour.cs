@@ -11,7 +11,8 @@ public class MoleBehaviour : MonoBehaviour
     [SerializeField]
     private Transform _endPos;
     private MoleManager _MoleManager;
-    private GameObject _currentMole = null;
+
+    public GameObject _currentMole {get; private set;} = null;
     public bool _canSpawnHere = false;
     private bool _isSpawned = false;
 
@@ -53,6 +54,17 @@ public class MoleBehaviour : MonoBehaviour
         {
             _currentMole.GetComponentInChildren<MeshCollider>().enabled = false;
             _currentMole.transform.DOMove(_startPos.position, 0.5f).SetEase(Ease.Linear).OnComplete(() => {Destroy(_currentMole); _isSpawned = false;});
+        }
+    }
+
+    public void Hit()
+    {
+        if (_currentMole)
+        {
+            StopCoroutine(MoveMole());
+            _currentMole.GetComponentInChildren<MeshCollider>().enabled = false;
+            _currentMole.transform.DOMove(_startPos.position, 0.25f).SetEase(Ease.Linear).OnComplete(() => {Destroy(_currentMole); _isSpawned = false;});
+            Debug.Log("hit");
         }
     }
 
