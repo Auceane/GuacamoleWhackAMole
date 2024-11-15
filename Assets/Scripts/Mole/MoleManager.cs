@@ -17,7 +17,7 @@ public class MoleManager : MonoBehaviour
     public UIController _scoreBoard;
 
     private MoleBehaviour[] _moles;
-    public bool _canSpawn = true;
+    public bool _canSpawn = true, _gameRunning = false;
 
     private void Start() {
         _moles = GetComponentsInChildren<MoleBehaviour>();
@@ -62,6 +62,7 @@ public class MoleManager : MonoBehaviour
             if (time > _minSpawnDelay + 0.1f) time -= 0.1f;
             _canSpawn = true;
         }
+        _gameRunning = false;
         _restart.SetActive(true);
         Debug.Log("stop game");
     }
@@ -69,5 +70,6 @@ public class MoleManager : MonoBehaviour
     public void StartSpawning()
     {
         StartCoroutine(SpawnWithInterval());
+        _gameRunning = true;
     }
 }

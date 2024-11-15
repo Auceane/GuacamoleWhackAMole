@@ -16,6 +16,8 @@ public class MoleBehaviour : MonoBehaviour
     public bool _canSpawnHere = false;
     private bool _isSpawned = false;
 
+    private bool _hasBeenHit = false;
+
 
     private void Start() 
     {
@@ -47,11 +49,13 @@ public class MoleBehaviour : MonoBehaviour
     {
         if (_currentMole) 
         {
-            _currentMole.transform.DOMove(_endPos.position, 0.5f).SetEase(Ease.Linear).OnComplete(() => _currentMole.GetComponentInChildren<MeshCollider>().enabled = true);
+            Debug.Log("Move up");
+            _currentMole.transform.DOMove(_endPos.position, 0.5f).SetEase(Ease.Linear).OnComplete(() =>{_currentMole.GetComponentInChildren<MeshCollider>().enabled = true; Debug.Log("Mesh Enabled");});
         }
         yield return new WaitForSeconds(2f);
-        if (_currentMole) 
+        if (_currentMole && !_hasBeenHit) 
         {
+            Debug.Log("Move down");
             _currentMole.GetComponentInChildren<MeshCollider>().enabled = false;
             _currentMole.transform.DOMove(_startPos.position, 0.5f).SetEase(Ease.Linear).OnComplete(() => {Destroy(_currentMole); _isSpawned = false; _MoleManager._scoreBoard.HasNotWhacked();});
         }
@@ -59,12 +63,12 @@ public class MoleBehaviour : MonoBehaviour
 
     public void Hit()
     {
-        if (_currentMole)
+        if (_currentMole && _MoleManager._gameRunning)
         {
-            StopCoroutine(MoveMole());
-            _MoleManager._scoreBoard.Whacked();
             _currentMole.GetComponentInChildren<MeshCollider>().enabled = false;
-            _currentMole.transform.DOMove(_startPos.position, 0.25f).SetEase(Ease.Linear).OnComplete(() => {Destroy(_currentMole); _isSpawned = false;});
+            _hasBeenHit = true;
+            _MoleManager._scoreBoard.Whacked();
+            _currentMole.transform.DOMove(_startPos.position, 0.25f).SetEase(Ease.Linear).OnComplete(() => {Destroy(_currentMole); _isSpawned = false; _hasBeenHit = false;});
             Debug.Log("hit");
         }
     }
