@@ -31,7 +31,7 @@ public class MoleBehaviour : MonoBehaviour
             _isSpawned = true;
             Debug.Log("BeforeSpawn");
             SpawnMole();
-            StartCoroutine(MoveMole());
+            MoveUp();
             _canSpawnHere = false;
             _MoleManager._canSpawn = false;
         }
@@ -45,19 +45,40 @@ public class MoleBehaviour : MonoBehaviour
 
     }
 
-    private IEnumerator MoveMole()
+    private void MoveUp()
     {
         if (_currentMole) 
         {
             Debug.Log("Move up");
-            _currentMole.transform.DOMove(_endPos.position, 0.5f).SetEase(Ease.Linear).OnComplete(() =>{_currentMole.GetComponentInChildren<MeshCollider>().enabled = true; Debug.Log("Mesh Enabled");});
+            Tween myTween = _currentMole.transform.DOMove(_endPos.position, 0.5f).SetEase(Ease.Linear);
+            myTween.OnComplete(() =>
+            {
+                _currentMole.GetComponentInChildren<MeshCollider>().enabled = true;
+                Debug.Log("Mesh Enabled");
+                StartCoroutine(MoveDown());
+            });
+            Debug.Log("is Up");
+            myTween.OnKill(() => 
+            {
+                Debug.LogError("Tween Was Killed !");
+            });
+            
         }
+    }
+
+    private IEnumerator MoveDown()
+    {
         yield return new WaitForSeconds(2f);
-        if (_currentMole && !_hasBeenHit) 
+        if (!_hasBeenHit) 
         {
             Debug.Log("Move down");
             _currentMole.GetComponentInChildren<MeshCollider>().enabled = false;
-            _currentMole.transform.DOMove(_startPos.position, 0.5f).SetEase(Ease.Linear).OnComplete(() => {Destroy(_currentMole); _isSpawned = false; _MoleManager._scoreBoard.HasNotWhacked();});
+            _currentMole.transform.DOMove(_startPos.position, 0.5f).SetEase(Ease.Linear).OnComplete(() => 
+            {
+                Destroy(_currentMole); 
+                _isSpawned = false; 
+                _MoleManager._scoreBoard.HasNotWhacked();
+            });
         }
     }
 
