@@ -51,6 +51,7 @@ public class MoleBehaviour : MonoBehaviour
         {
             Debug.Log("Move up");
             Tween myTween = _currentMole.transform.DOMove(_endPos.position, 0.5f).SetEase(Ease.Linear);
+            myTween.SetAutoKill(false);
             myTween.OnComplete(() =>
             {
                 _currentMole.GetComponentInChildren<MeshCollider>().enabled = true;
