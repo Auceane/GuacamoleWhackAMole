@@ -18,10 +18,15 @@ public class MoleBehaviour : MonoBehaviour
 
     private bool _hasBeenHit = false;
 
+    private Coroutine _currentMoveDown;
+
+    private AudioSource _bonk;
+
 
     private void Start() 
     {
         _MoleManager = GetComponentInParent<MoleManager>();
+        _bonk = GetComponentInParent<AudioSource>();
     }
 
     private void Update() 
@@ -56,7 +61,7 @@ public class MoleBehaviour : MonoBehaviour
             {
                 _currentMole.GetComponentInChildren<MeshCollider>().enabled = true;
                 Debug.Log("Mesh Enabled");
-                StartCoroutine(MoveDown());
+                _currentMoveDown = StartCoroutine(MoveDown());
             });
             Debug.Log("is Up");
             myTween.OnKill(() => 
@@ -87,6 +92,12 @@ public class MoleBehaviour : MonoBehaviour
     {
         if (_currentMole && _MoleManager._gameRunning)
         {
+            if (_currentMoveDown != null)
+            {
+                StopCoroutine(_currentMoveDown);
+                _currentMoveDown = null;
+            }
+            _bonk.Play();
             _currentMole.GetComponentInChildren<MeshCollider>().enabled = false;
             _hasBeenHit = true;
             _MoleManager._scoreBoard.Whacked();
