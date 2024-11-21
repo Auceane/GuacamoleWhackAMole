@@ -91,19 +91,19 @@ public class UIController : MonoBehaviour
     {
         if (_combos >= 20)
         {
-            _Combos.color = Color.cyan;
+            _Combos.color = Color.red;
         }
         else if (_combos >= 10)
         {
 
-            _Combos.color = Color.magenta;
+            _Combos.color = Color.yellow;
         }
         else if (_combos >= 5)
         {
-            _Combos.color = Color.red;
+            _Combos.color = Color.cyan;
         } else
         {
-            _Combos.color = Color.black;
+            _Combos.color = Color.white;
         }
 
         if(_combos!=0 && _combos % _numberOfCombosToGetAHeart==0 && _HeartContainer.childCount < 5)
